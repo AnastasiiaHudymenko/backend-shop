@@ -4,12 +4,14 @@ const cors = require("cors");
 const app = express();
 
 const producstRouter = require("./routes/products");
+const orderRouter = require("./routes/orders");
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
 app.use("/api/products", producstRouter);
+app.use("/users/order", orderRouter);
 
 app.use((req, res) => {
   res.status(404).json({

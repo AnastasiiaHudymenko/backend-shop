@@ -2,12 +2,19 @@ const Product = require("../models/products");
 const path = require("path");
 const fs = require("fs/promises");
 const Jimp = require("jimp");
+const ctrlWrapper = require("../helpers/ctrlWrapper");
 
 const imageDir = path.join(__dirname, "../", "public", "avatars");
 
+const getAll = async (req, res) => {
+  const result = await Product.find();
+  res.status(200).json(result);
+};
+
 const uploadImage = async (req, res) => {
+  const { _id } = req.body;
   const { path: tempUpload, originalname } = req.file;
-  const filename = `646dd067861a8d5c0720a0ea_${originalname}`;
+  const filename = `${_id}_${originalname}`;
   const resultUpload = path.join(imageDir, filename);
 
   const imageRead = await Jimp.read(tempUpload);
@@ -16,11 +23,14 @@ const uploadImage = async (req, res) => {
 
   await fs.rename(tempUpload, resultUpload);
   const image = path.join("avatars", filename);
-  await Product.findByIdAndUpdate("646dd067861a8d5c0720a0ea", { image });
+  await Product.findByIdAndUpdate(_id, { image });
 
   res.json({
     image,
   });
 };
 
-module.exports = uploadImage;
+module.exports = {
+  uploadImage: ctrlWrapper(uploadImage),
+  getAll: ctrlWrapper(getAll),
+};
