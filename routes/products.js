@@ -13,6 +13,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// router.patch("/avatars", upload.single("avatar"), uploadImage);
+router.patch("/avatars", upload.single("avatar"), uploadImage);
 
 module.exports = router;
