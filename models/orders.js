@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
-const OrderSchema = new Schema({
+const orderSchema = new Schema({
   shopName: String,
   title: String,
   price: Number,
@@ -13,9 +13,12 @@ const userDataSchema = Joi.object({
   email: Joi.string().required(),
   phone: Joi.string().required(),
   address: Joi.string().required(),
+  basket: Joi.array().required(),
+  orederNumber: Joi.number(),
+  totalPrice: Joi.number(),
 });
 
-const ordersSchema = new Schema(
+const userOrdersSchema = new Schema(
   {
     name: {
       type: String,
@@ -33,10 +36,21 @@ const ordersSchema = new Schema(
       type: String,
       required: true,
     },
-    backet: [OrderSchema],
+    orederNumber: {
+      type: Number,
+      required: true,
+    },
+    totalPrice: {
+      type: Number,
+    },
+
+    basket: {
+      type: [orderSchema],
+      required: true,
+    },
   },
   { versionKey: false }
 );
 
-const Order = model("order", ordersSchema);
+const Order = model("order", userOrdersSchema);
 module.exports = { Order, userDataSchema };
