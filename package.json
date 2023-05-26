@@ -20,6 +20,7 @@
     "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
-    "jimp": "^0.22.8"
+    "jimp": "^0.22.8",
+    "nodemon": "^2.0.22"
   }
 }
