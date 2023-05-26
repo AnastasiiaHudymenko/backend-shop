@@ -3,6 +3,8 @@ const cors = require("cors");
 
 const app = express();
 
+console.log("Hello");
+
 const producstRouter = require("./routes/products");
 const orderRouter = require("./routes/orders");
 
