@@ -3,7 +3,9 @@ const HttpError = require("../helpers/HttpError");
 const validateBody = (schema) => {
   const func = (req, res, next) => {
     if (req.body.basket.length === 0) {
-      next(HttpError(400));
+      next(
+        HttpError(400, "Bad request, your order is empty, select a product")
+      );
     }
     const { error } = schema.validate(req.body);
 
