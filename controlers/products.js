@@ -8,7 +8,7 @@ const imageDir = path.join(__dirname, "../", "public", "avatars");
 
 const getAll = async (req, res) => {
   const result = await Product.find();
-  const ress = {data: result}
+  const ress = {data: result,total: 1}
   res.status(200).json(ress);
 };
 
