@@ -10,7 +10,7 @@ const getAll = async (req, res) => {
   const result = await Product.find();
   const transformedData = result.map((item) => ({
   ...item,
-  id: item._id.toString(),
+  id: item._id
 }));
   const ress = {data: transformedData,total: 1}
   res.status(200).json(ress);
